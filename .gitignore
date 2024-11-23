@@ -1,0 +1,4 @@
+.env
+admin_password
+config/*
+!config/.gitkeep
