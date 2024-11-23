@@ -1,0 +1,36 @@
+services:
+  pzserver:
+    restart: unless-stopped
+    build:
+      context: .
+      dockerfile: Dockerfile
+    ports:
+      - 16261:16261/udp
+      - 16262:16262/udp
+    env_file:
+      - .env
+    environment:
+      ADMIN_PASSWORD: /run/secrets/admin_password
+    secrets:
+      - admin_password
+    volumes:
+      - data:/opt/pzserver
+      - config:/home/pzuser/Zomboid
+    networks:
+      - default
+
+secrets:
+  admin_password:
+    file: admin_password
+
+volumes:
+  data:
+  config:
+    driver: "local"
+    driver_opts:
+        o: bind
+        type: none
+        device: ./config
+
+networks:
+  default:
