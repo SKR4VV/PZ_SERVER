@@ -11,29 +11,46 @@ Follow the official documentation [here](https://docs.docker.com/get-started/get
 
 ### Installation
 
-Create your own ```.env``` file based on the example & create an ```admin_password``` file at project root with your password in it.
+First, you need to create the Steam ```.env``` in ```steam_config``` folder and put the STEAMAPPID of the game (Project Zomboid server is 380870).
 
-Simply run :
+Then, create the server ```.env``` file based on the example and create an ```admin_password``` file at project root with your password in it.
 
-```sh
-docker compose -d up
+To run the server with your own settings, set CUSTOM_CONFIG to true and replace the four configuration files in ```custom_config``` folder or just edit theses files :
+
+```
+servername_SandboxVars.lua
+servername_spawnpoints.lua
+servername_spawnregions.lua
+servername.ini
 ```
 
-It will create a default configuration files to initialize the server. If you don't want to use them, paste yours or use files from ```server_config_example``` in ```config > Server```
+If CUSTOM_CONFIG is set to false, it will create a default configuration files to initialize the server.
 
-Don't forget to rename "servername" with the name previously defined in the ```.env``` (SERVER_NAME) in order to use the example config.
+Now, run the following command.
 
-For external access, make 16261 and 16262 ports available.
+```sh
+docker compose --profile updater up
+```
+
+The Steam container will download the server binaries from the Steam repository and the game container will launch the server after that.
+
+Next time you need to run the server, disable CUSTOM_CONFIG and run this command :
+
+```sh
+docker compose up
+```
+
+Finaly, for external access, make 16261 and 16262 ports available.
 
 Enjoy the game on your fresh server !
 
 ## Roadmap
 
-* Separate server installation from execution
 * Check for an update and write it to the game chat variable
+* Create public Steam server
+* Add support for multiple servers
 * Add support for mods
-* Support command execution via Discord
-
+* Add support for command execution with Discord
 
 ## Sources
 
