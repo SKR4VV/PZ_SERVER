@@ -4,5 +4,4 @@
 .env.example
 admin_password
 docker-compose.yml
-server_config_example
 README.md

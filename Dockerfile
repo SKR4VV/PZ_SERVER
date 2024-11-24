@@ -14,9 +14,10 @@ RUN adduser \
     --ingroup pz \
     ${USER}
 
-RUN mkdir -p /opt/pzserver /opt/server_scripts /home/${USER}/Zomboid
+RUN mkdir -p /opt/pzserver /opt/server_scripts /opt/custom_config /home/${USER}/Zomboid
 
 COPY server_scripts /opt/server_scripts
+COPY custom_config /opt/custom_config
 
 RUN chown -R ${USER}:${GROUP} /opt /home/${USER}/Zomboid
 
