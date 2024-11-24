@@ -1,9 +1,27 @@
+name: pz
+
 services:
-  pzserver:
+  steam:
+    image: steamcmd/steamcmd
+    profiles: [ updater ]
+    env_file:
+      - steam_config/.env
+    volumes:
+      - data:/opt/server
+      - ./steam_config/build_script.sh:/opt/build_script.sh
+    entrypoint: [ "/bin/sh", "-c", "/opt/build_script.sh" ]
+    networks:
+      - default
+
+  server:
     restart: unless-stopped
     build:
       context: .
       dockerfile: Dockerfile
+    depends_on:
+      steam:
+        condition: service_completed_successfully
+        required: false
     ports:
       - 16261:16261/udp
       - 16262:16262/udp
