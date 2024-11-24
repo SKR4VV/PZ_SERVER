@@ -5,7 +5,7 @@ cat <<EOL >/opt/config_update
 @ShutdownOnFailedCommand 1
 @NoPromptForPassword 1
 force_install_dir /opt/server
-login anonymous 
+login anonymous
 app_update ${STEAMAPPID} validate
 quit
 EOL
